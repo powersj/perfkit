@@ -9,12 +9,30 @@ Traditional performance testing is done in a pristine enviornment with dedicated
 This testing is looking at representative sampling of the herd. Cloud tests are run effectively in a black box enviornment. There is no knowledge of the enviornment's state in terms of noise. As such tests need to be run mulitple times on the same hardware/sizing. This avoids having noisy neighbors from standing out and affecting test results, changes to the hardware effecting test results.
 
 ## Preqs
-The following is required for the scripts to work:
+### Packages
+The following packages are required:
 
 ```
-apt update
-apt install -y python3-boto3 python3-paramiko
+$ apt update
+$ apt install -y python3-boto3 python3-paramiko
 ```
+
+### AWS EC2 Configuration
+By default, boto3 will by default look for the following two AWS configuration files config and credentials. These set your id and secret key as well as your default region:
+
+```
+$ cat $HOME/.aws/config
+[default]
+output = json
+region = us-west-2
+$ cat $HOME/.aws/credentials
+[default]
+aws_access_key_id = KEY_ID_HERE
+aws_secret_access_key = ACCESS_KEY_HERE
+```
+
+### SSH Keys
+It is assumed you have an SSH key uploaded to your default region using the same name as `$USER`.
 
 ## Directories
 ### bin
