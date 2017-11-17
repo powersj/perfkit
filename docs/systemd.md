@@ -1,5 +1,4 @@
 # systemd
-
 systemd-analyze is utilized in order to evaluate boot time for a node. It comes with a variety of sub-commands that are useful for analyzing system boot time performance. A breakdown of each subcommand is detailed below.
 
 Of course, the use of systemd-analyze requires that systemd is used as the init system, which is not the case for Ubuntu 14.04 (Trusty). Therefore, only Ubuntu 16.04 (Xenial) and newer versions of Ubuntu get this type of testing.
