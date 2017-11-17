@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Launch an AWS EC2 Instances."""
+"""Launch an AWS EC2 Instance."""
 import argparse
 import glob
 import os
@@ -106,12 +106,11 @@ def push_test_scripts(client):
 def wait_for_instance(instance_id):
     """Wait for instance to get to running state."""
     print('waiting for instance')
-    retries = 12
     session = boto3.session.Session()
     client = session.client(service_name='ec2')
 
+    retries = 12
     for _ in range(retries):
-        time.sleep(10)
         response = client.describe_instance_status(InstanceIds=[instance_id])
 
         try:
@@ -119,6 +118,7 @@ def wait_for_instance(instance_id):
 
             print(state)
             if state == 'pending':
+                time.sleep(10)
                 continue
             else:
                 ec2 = boto3.resource('ec2')
@@ -126,9 +126,10 @@ def wait_for_instance(instance_id):
                 return instance.public_ip_address
 
         except IndexError:
+            time.sleep(10)
             continue
 
-    print('error: instance is not in \'running\' state after %s seconds' %
+    print('error: instance is not in running state after %s seconds' %
           (retries * 10))
     sys.exit(1)
 
