@@ -13,7 +13,7 @@ The following is required for the scripts to work:
 
 ```
 apt update
-apt install -y tox python3-boto3
+apt install -y python3-boto3 python3-paramiko
 ```
 
 ## Directories
