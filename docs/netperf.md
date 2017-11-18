@@ -12,7 +12,7 @@ Netperf has a very large number of test options that can be very useful in addit
 * -D # Display interim results every # seconds
 * -f [m|g] Display throughput in megabits or gigabits (Stream only)
 
-## Test Case
+## Test Cases
 To gain a sense of basic performance of the network device the following is collected over an IPv4 address using whatever the default MTU is:
 
 * TCP Send (tcp_stream)
