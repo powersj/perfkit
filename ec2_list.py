@@ -4,6 +4,7 @@ import argparse
 import json
 
 import boto3
+from tabulate import tabulate
 
 
 class Ec2Instance(object):
@@ -34,7 +35,7 @@ class Ec2Instance(object):
 
     def __str__(self):
         """Table format."""
-        return('%19s %12s %13s %12s %15s %15s %s' %
+        return('%s %s %s %s %s %s %s' %
                (self.instance_id, self.type, self.state, self.ami,
                 self.ip_public, self.ip_private, self.owner))
 
@@ -80,10 +81,11 @@ def ec2_list_instances(tag_filter=None, csv_flag=False, json_flag=False):
         print(json.dumps([instance.to_json() for instance in instances],
                          indent=4))
     else:
-        print('%19s %12s %13s %12s %15s %15s %s' %
-              ('id', 'type', 'state', 'ami', 'ip_public', 'ip_private',
-               'owner'))
-        print('\n'.join([instance.__str__() for instance in instances]))
+        table = []
+        for instance in instances:
+            table.append(str(instance).split(' '))
+        print(tabulate(table, headers=['id', 'type', 'state', 'ami',
+                                       'ip_public', 'ip_private', 'owner']))
 
 
 if __name__ == '__main__':
