@@ -17,8 +17,10 @@ error() { echo "$@" 1>&2; }
 fail() { [ $# -eq 0 ] || error "$@"; exit 1; }
 bad_usage() { usage 1>&2; return 1; }
 
+trap cleanup EXIT
 cleanup() {
-    [ -z "${TEMP_D}" ] || [ ! -d "${TEMP_D}" ] || rm -Rf "${TEMP_D}"
+    # clean up generated files
+    rm test.*.0
 }
 
 debug() {
@@ -45,13 +47,12 @@ fio_test(){
     local test=$1
     shift
 
-    filename="$LOG_DIR/$test-$(date +%s)"
-    cmd="fio fio/$test.ini -output=$filename.json -output-format=json"
-    printf "%s\n%s\n" "$(date)" "$cmd" | tee "$filename.log"
-    $cmd | tee -a "$filename.log"
-
-    printf "\n\n"
-    sleep 60
+    filename="$LOG_DIR/$test-$(date +%s).json"
+    cmd="fio fio/$test.ini -output=$filename -output-format=json"
+    printf "%s\n%s\n" "$(date)" "$cmd"
+    $cmd
+    echo
+    sleep 10
 }
 
 main() {
@@ -91,22 +92,20 @@ main() {
 
     prefix=""
     if [ -n "$md" ]; then
-        echo "running tests on /dev/md0"
+        echo "options: using /dev/md0"
         prefix="${prefix}md0-"
     fi
 
     if [ -n "$random" ]; then
-        echo "running random tests"
+        echo "options: using random I/O"
         prefix="${prefix}random-"
     fi
 
     if [ -n "$read" ]; then
-        echo "running read tests"
         fio_test "${prefix}read"
     fi
 
     if [ -n "$write" ]; then
-        echo "running write tests"
         fio_test "${prefix}write"
     fi
 

@@ -12,7 +12,7 @@ if [ ! -d "$LOG_DIR" ]; then
     mkdir -p "$LOG_DIR"
 fi
 
-filename="$LOG_DIR/$(date +%s).log"
+filename="$LOG_DIR/matrix-$(date +%s).log"
 printf "%s\n%s\n" "$(date)" "$CMD" | tee "$filename"
 $CMD | tee -a "$filename"
 
