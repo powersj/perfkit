@@ -14,3 +14,5 @@ PACKAGES=(
 
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y "${PACKAGES[@]}"
+
+# vi: ts=4 noexpandtab

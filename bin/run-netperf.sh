@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run basic netperf stream and rr tests.
+# Run hour long netperf stream and rr tests.
 #
 # Copyright 2017 Canonical Ltd.
 # Joshua Powers <josh.powers@canonical.com>
@@ -49,3 +49,5 @@ RR_TESTS=("TCP_RR" "UDP_RR")
 for test in "${RR_TESTS[@]}"; do
     run_test "$test"
 done
+
+# vi: ts=4 noexpandtab

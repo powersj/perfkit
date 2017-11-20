@@ -27,3 +27,5 @@ cp /var/log/cloud-init-output.log "$LOG_DIR/cloud-init-output.log"
 systemd-analyze time | tee "$LOG_DIR/systemd_time.log"
 systemd-analyze blame --no-pager | tee "$LOG_DIR/systemd_blame.log"
 systemd-analyze critical-chain --no-pager | tee "$LOG_DIR/systemd_chain.log"
+
+# vi: ts=4 noexpandtab

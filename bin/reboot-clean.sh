@@ -4,6 +4,7 @@
 # Copyright 2017 Canonical Ltd.
 # Scott Moser <scott.moser@canonical.com>
 # Joshua Powers <josh.powers@canonical.com>
+set -eux
 
 me=${0}
 PATH=${me%/*}:$PATH
@@ -52,3 +53,5 @@ if $reboot; then
     error "rebooting"
     reboot
 fi
+
+# vi: ts=4 noexpandtab

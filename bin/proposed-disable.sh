@@ -1,12 +1,11 @@
-#!/bin/sh
-# Intalls the AWS Kernel via linux-image-aws and reboot.
+#!/bin/bash
+# Disable proposed for apt
 #
 # Copyright 2017 Canonical Ltd.
 # Joshua Powers <josh.powers@canonical.com>
 set -eux
 
+sudo rm /etc/apt/sources.list.d/proposed.list
 sudo apt-get update
-sudo apt-get install linux-image-aws -y
-sudo shutdown -r now
 
 # vi: ts=4 noexpandtab
