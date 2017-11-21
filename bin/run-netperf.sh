@@ -20,15 +20,15 @@ if [ ! -d "$LOG_DIR" ]; then
 fi
 
 run_test() {
-    local test="$1" opts="$2"
-    shift 2
+    local test="$1"
+    shift 1
 
     # -l: run for 600 seconds
     # -D: print interim results every 60 seconds
     # -c: print local CPU usage
     # -C: print remote CPU usage
     # -n: set the nubmer of CPUs
-    cmd="sudo netperf -t $test -H $TARGET -l 600 -D 60 -c -C -n $CPUS $opts"
+    cmd="sudo netperf -t $test -H $TARGET -l 600 -D 60 -c -C -n $CPUS"
 
     filename="$LOG_DIR/$test-$(date +%s).log"
     printf "%s\n%s\n" "$(date)" "$cmd" | tee "$filename"
@@ -42,7 +42,7 @@ run_test() {
 STREAM_TESTS=("TCP_STREAM" "TCP_MAERTS" "UDP_STREAM")
 for test in "${STREAM_TESTS[@]}"; do
     # -f: print in gigabits (only necessary for STREAM tests; not RR)
-    run_test "$test" "-f g"
+    run_test "$test"
 done
 
 RR_TESTS=("TCP_RR" "UDP_RR")

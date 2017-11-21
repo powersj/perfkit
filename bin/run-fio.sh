@@ -10,7 +10,6 @@
 set -eu
 
 VERBOSITY=0
-TEMP_D=""
 LOG_DIR="$HOME/logs/fio"
 
 error() { echo "$@" 1>&2; }
@@ -19,8 +18,9 @@ bad_usage() { usage 1>&2; return 1; }
 
 trap cleanup EXIT
 cleanup() {
-    # clean up generated files
-    rm test.*.0
+    if [ -e test.0.0 ]; then
+        rm test.*.0
+    fi
 }
 
 debug() {

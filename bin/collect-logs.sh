@@ -19,6 +19,7 @@ fi
 
 # sosreport-HOSTNAME-YYYYMMDDHHMMSS.tar.xz
 sudo sosreport --batch --quiet --tmp-dir="$LOG_DIR"
+sudo chown "$USER":"$USER" "$LOG_DIR"/*
 
 cp /var/log/cloud-init.log "$LOG_DIR/cloud-init.log"
 cp /var/log/cloud-init-output.log "$LOG_DIR/cloud-init-output.log"

@@ -10,6 +10,7 @@ PACKAGES=(
     mdadm
     netperf
     stress-ng
+    tree
 )
 
 sudo apt-get update

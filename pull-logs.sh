@@ -3,7 +3,7 @@
 #
 # Copyright 2017 Canonical Ltd.
 # Joshua Powers <josh.powers@canonical.com>
-set -eux
+set -eu
 
 PROJECT=${1:-''}
 TARGET=${2:-''}
