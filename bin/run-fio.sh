@@ -93,12 +93,12 @@ main() {
     prefix=""
     if [ -n "$md" ]; then
         echo "options: using /dev/md0"
-        prefix="${prefix}md0-"
+        prefix="${prefix}md0_"
     fi
 
     if [ -n "$random" ]; then
         echo "options: using random I/O"
-        prefix="${prefix}random-"
+        prefix="${prefix}random_"
     fi
 
     if [ -n "$read" ]; then
