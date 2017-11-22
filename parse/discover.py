@@ -1,64 +1,73 @@
 """Launch discovery and parsing of logs."""
 import os
 
-from .parsers.netperf import Netperf
-from .parsers.fio import Fio
-from .parsers.stress_ng import StressNg
-from .parsers.systemd import Systemd
+from .log.fio import FioLog
+from .log.netperf import NetperfLog
+from .log.stress_ng import StressNgLog
+from .log.systemd import SystemdLog
 
 
 def launch(log_dir):
     """TODO."""
-    log_dir = os.path.abspath(log_dir)
     print(log_dir)
 
-    releases = [f for f in os.listdir(log_dir) if os.path.isdir(os.path.join(log_dir, f))]
-    for release in releases:
+    for release in list_dirs(log_dir):
         print(release)
+        release_dir = os.path.join(log_dir, release)
 
-        netperf_dir = os.path.join(log_dir, release, 'netperf')
-        if os.path.exists(netperf_dir):
-            print('netperf')
-            results = []
-            for f in os.listdir(netperf_dir):
-                if os.path.isfile(os.path.join(netperf_dir, f)):
-                    results.append(Netperf(os.path.join(netperf_dir, f)))
+        report_systemd(release_dir)
+        gather_results(StressNgLog, os.path.join(release_dir, 'stress-ng'))
+        gather_results(NetperfLog, os.path.join(release_dir, 'netperf'))
+        gather_results(FioLog, os.path.join(release_dir, 'fio'))
 
-            for result in results:
-                print(result)
 
-        fio_dir = os.path.join(log_dir, release, 'fio')
-        if os.path.exists(fio_dir):
-            print('fio')
-            results = []
-            for f in os.listdir(fio_dir):
-                if os.path.isfile(os.path.join(fio_dir, f)):
-                    results.append(Fio(os.path.join(fio_dir, f)))
+def list_files(path):
+    """List all files in a directory."""
+    files = []
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if os.path.isfile(file_path):
+            files.append(file_path)
 
-            for result in results:
-                print(result)
+    return sorted(files)
 
-        stress_ng_dir = os.path.join(log_dir, release, 'stress-ng')
-        if os.path.exists(stress_ng_dir):
-            print('stress-ng')
-            results = []
-            for f in os.listdir(stress_ng_dir):
-                if os.path.isfile(os.path.join(stress_ng_dir, f)):
-                    results.append(StressNg(os.path.join(stress_ng_dir, f)))
 
-            for result in results:
-                print(result)
+def list_dirs(path):
+    """List all directories in a directory."""
+    dirs = []
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if os.path.isdir(file_path):
+            dirs.append(file_path)
 
-        boot_dir = os.path.join(log_dir, release, 'boot')
-        if os.path.exists(boot_dir):
-            print('boot')
-            results = []
-            boots = [f for f in os.listdir(boot_dir) if os.path.isdir(os.path.join(boot_dir, f))]
-            for boot in boots:
-                boot_log_dir = os.path.join(boot_dir, boot)
-                for f in os.listdir(boot_log_dir):
-                    if f == 'systemd_time.log':
-                        results.append(Systemd(os.path.join(boot_log_dir, f)))
+    return sorted(dirs)
 
-            for result in results:
-                print(result)
+
+def report_systemd(release_dir):
+    """TODO."""
+    results = []
+    boot_dir = os.path.join(release_dir, 'boot')
+
+    if not os.path.exists(boot_dir):
+        return results
+
+    print('analyzing boot times')
+    for boot in list_dirs(boot_dir):
+        boot_log_dir = os.path.join(boot_dir, boot)
+        for file in list_files(boot_log_dir):
+            if file == 'systemd_time.log':
+                results.append(SystemdLog(os.path.join(boot_log_dir, file)))
+
+    return results
+
+
+def gather_results(log_object, directory):
+    """Collect results for specific object."""
+    results = []
+    if not os.path.exists(directory):
+        return results
+
+    for file in list_files(directory):
+        results.append(log_object(os.path.join(directory, file)))
+
+    return results

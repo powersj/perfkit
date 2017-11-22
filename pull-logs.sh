@@ -36,7 +36,7 @@ ssh_target(){
 
 RELEASE=$(ssh_target "lsb_release -s -c")
 KERNEL=$(ssh_target "uname -r | rev | cut -d'-' -f1 | rev")
-LOCAL_LOG_DIR="logs/raw/$PROJECT/$RELEASE-$KERNEL"
+LOCAL_LOG_DIR="logs/$PROJECT/$RELEASE-$KERNEL"
 
 if [ ! -d "$LOCAL_LOG_DIR" ]; then
     mkdir -p "$LOCAL_LOG_DIR"

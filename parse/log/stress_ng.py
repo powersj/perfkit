@@ -2,14 +2,15 @@
 import re
 
 
-class StressNg(object):
+class StressNgLog(object):
     """StressNg Parsing Object."""
 
     def __init__(self, log_path):
         """Collect relevant information."""
         self.date = log_path.split('/')[-1].split('-')[1].replace('.log', '')
-        with open(log_path) as f:
-            lines = f.read()
+
+        with open(log_path) as log:
+            lines = log.read()
 
         regex = r'stress-ng:\sinfo:\s+\[\d+\]\smatrix\s+(.+?)\n'
         match = re.search(regex, lines)
