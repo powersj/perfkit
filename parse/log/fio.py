@@ -4,6 +4,7 @@ import json
 
 class FioLog(object):
     """FIO Parsing Object."""
+    name = 'fio'
 
     def __init__(self, log_path):
         """Store relevant information."""
@@ -16,9 +17,9 @@ class FioLog(object):
             self.type = 'write'
 
         if 'random' in filename:
-            self.name = '%s-%s' % (self.type, 'random')
+            self.test = '%s-%s' % (self.type, 'random')
         else:
-            self.name = self.type
+            self.test = self.type
 
         with open(log_path) as json_data:
             data = json.load(json_data)
@@ -30,9 +31,9 @@ class FioLog(object):
 
     def __str__(self):
         """Return CSV of results."""
-        return '%s,%s,%s,%s,%s,%s' % (self.date, self.name, self.iops,
-                                      self.bandwidth, self.io_bytes,
-                                      self.disk_util_mean)
+        return '%s,%s,%s,%s,%s,%s,%s' % (self.name, self.date, self.test,
+                                         self.iops, self.bandwidth,
+                                         self.io_bytes, self.disk_util_mean)
 
     @staticmethod
     def _calc_disk_mean(disks):

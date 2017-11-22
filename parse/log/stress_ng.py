@@ -4,6 +4,7 @@ import re
 
 class StressNgLog(object):
     """StressNg Parsing Object."""
+    name = 'stress-ng'
 
     def __init__(self, log_path):
         """Collect relevant information."""
@@ -19,4 +20,4 @@ class StressNgLog(object):
 
     def __str__(self):
         """Return CSV of results."""
-        return '%s,%s' % (self.date, self.bogo_ops_real)
+        return '%s,%s,%s' % (self.name, self.date, self.bogo_ops_real)

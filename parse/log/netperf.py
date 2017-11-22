@@ -3,6 +3,7 @@
 
 class NetperfLog(object):
     """Netperf Parsing Object."""
+    name = 'netperf'
 
     def __init__(self, log_path):
         """Collect relevant information."""
@@ -30,10 +31,11 @@ class NetperfLog(object):
     def __str__(self):
         """Return CSV of results."""
         if self.test == 'STREAM':
-            name = 'Send'
+            test_type = 'Send'
         elif self.test == 'MAERTS':
-            name = 'Receive'
+            test_type = 'Receive'
         elif self.test == 'RR':
-            name = 'RR'
+            test_type = 'RR'
 
-        return '%s,%s,%s,%s' % (self.date, self.protocol, name, self.result)
+        return '%s,%s,%s,%s,%s' % (self.name,self.date, self.protocol,
+                                   test_type, self.result)

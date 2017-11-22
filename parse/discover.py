@@ -4,15 +4,9 @@ import os
 from .log.fio import FioLog
 from .log.netperf import NetperfLog
 from .log.stress_ng import StressNgLog
-from .log.systemd import SystemdLog
+from .log.systemd import SystemdAnalyzeLog
 
-LOG_TO_CLASS = {
-    'systemd-analyze': SystemdLog,
-    'stress-ng': StressNgLog,
-    'netperf': NetperfLog,
-    'fio': FioLog
-}
-
+LOG_TYPES = [SystemdAnalyzeLog, StressNgLog, NetperfLog, FioLog]
 
 def launch(log_dir):
     """TODO."""
@@ -22,9 +16,9 @@ def launch(log_dir):
         print(release)
         release_dir = os.path.join(log_dir, release)
 
-        for type_name, class_name in LOG_TO_CLASS.items():
-            log_dir = os.path.join(release_dir, type_name)
-            results = gather_results(class_name, log_dir)
+        for log_type in LOG_TYPES:
+            log_dir = os.path.join(release_dir, log_type.name)
+            results = gather_results(log_type, log_dir)
             for result in results:
                 print(result)
 
