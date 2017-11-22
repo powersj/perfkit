@@ -6,6 +6,13 @@ from .log.netperf import NetperfLog
 from .log.stress_ng import StressNgLog
 from .log.systemd import SystemdLog
 
+LOG_TO_CLASS = {
+    'systemd-analyze': SystemdLog,
+    'stress-ng': StressNgLog,
+    'netperf': NetperfLog,
+    'fio': FioLog
+}
+
 
 def launch(log_dir):
     """TODO."""
@@ -15,10 +22,11 @@ def launch(log_dir):
         print(release)
         release_dir = os.path.join(log_dir, release)
 
-        report_systemd(release_dir)
-        gather_results(StressNgLog, os.path.join(release_dir, 'stress-ng'))
-        gather_results(NetperfLog, os.path.join(release_dir, 'netperf'))
-        gather_results(FioLog, os.path.join(release_dir, 'fio'))
+        for type_name, class_name in LOG_TO_CLASS.items():
+            log_dir = os.path.join(release_dir, type_name)
+            results = gather_results(class_name, log_dir)
+            for result in results:
+                print(result)
 
 
 def list_files(path):
@@ -41,24 +49,6 @@ def list_dirs(path):
             dirs.append(file_path)
 
     return sorted(dirs)
-
-
-def report_systemd(release_dir):
-    """TODO."""
-    results = []
-    boot_dir = os.path.join(release_dir, 'boot')
-
-    if not os.path.exists(boot_dir):
-        return results
-
-    print('analyzing boot times')
-    for boot in list_dirs(boot_dir):
-        boot_log_dir = os.path.join(boot_dir, boot)
-        for file in list_files(boot_log_dir):
-            if file == 'systemd_time.log':
-                results.append(SystemdLog(os.path.join(boot_log_dir, file)))
-
-    return results
 
 
 def gather_results(log_object, directory):

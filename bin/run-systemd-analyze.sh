@@ -10,12 +10,12 @@ while [ ! -e /var/lib/cloud/instance/boot-finished ]; do
     sleep 3
 done
 
-LOG_DIR="$HOME/logs/boot"
+LOG_DIR="$HOME/logs/systemd-analyze"
 
 if [ ! -d "$LOG_DIR" ]; then
     mkdir -p "$LOG_DIR"
 fi
 
-systemd-analyze time | tee "$LOG_DIR/systemd-analyze_$(date +%s).log"
+systemd-analyze time | tee "$LOG_DIR/time-$(date +%s).log"
 
 # vi: ts=4 noexpandtab

@@ -7,14 +7,13 @@ class SystemdLog(object):
 
     def __init__(self, log_path):
         """Collect relevant information."""
-        self.date = log_path.split('/')[-2]
+        self.date = log_path.split('/')[-1].split('-')[1].replace('.log', '')
 
         with open(log_path) as log:
             lines = log.read()
 
-
-        # test:
-        # Startup finished in 3.802s (firmware) + 4.318s (loader) + 5.291s (kernel) + 2min 2.026s (userspace) = 2min 15.439s
+        import pdb
+        pdb.set_trace()
 
         self.kernel = re.findall(r'([0-9\.]+?)s\s\(kernel\)', lines)[0]
         self.userspace = re.findall(r'([0-9\.]+?)s\s\(userspace\)', lines)[0]
