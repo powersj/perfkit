@@ -3,6 +3,7 @@
 
 class NetperfLog(object):
     """Netperf Parsing Object."""
+
     name = 'netperf'
 
     def __init__(self, log_path):
@@ -37,5 +38,5 @@ class NetperfLog(object):
         elif self.test == 'RR':
             test_type = 'RR'
 
-        return '%s,%s,%s,%s,%s' % (self.name,self.date, self.protocol,
+        return '%s,%s,%s,%s,%s' % (self.name, self.date, self.protocol,
                                    test_type, self.result)

@@ -8,8 +8,9 @@ from .log.systemd import SystemdAnalyzeLog
 
 LOG_TYPES = [SystemdAnalyzeLog, StressNgLog, NetperfLog, FioLog]
 
+
 def launch(log_dir):
-    """TODO."""
+    """Parse out directories and get results."""
     print(log_dir)
 
     for release in list_dirs(log_dir):

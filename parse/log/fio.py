@@ -4,6 +4,7 @@ import json
 
 class FioLog(object):
     """FIO Parsing Object."""
+
     name = 'fio'
 
     def __init__(self, log_path):

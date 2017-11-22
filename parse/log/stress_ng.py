@@ -4,6 +4,7 @@ import re
 
 class StressNgLog(object):
     """StressNg Parsing Object."""
+
     name = 'stress-ng'
 
     def __init__(self, log_path):

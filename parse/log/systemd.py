@@ -3,6 +3,7 @@
 
 class SystemdAnalyzeLog(object):
     """systemd Parsing Object."""
+
     name = 'systemd-analyze'
 
     def __init__(self, log_path):
