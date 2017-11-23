@@ -1,5 +1,6 @@
 # PerfKit
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4c90eef725b643629f818db0819ecd37)](https://www.codacy.com/app/mrpowersj/perfkit?utm_source=github.com&utm_medium=referral&utm_content=powersj/perfkit&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/powersj/perfkit.svg?branch=master)](https://travis-ci.org/powersj/perfkit)
 
 This is my personal collection of scripts and helpers for cloud performance testing.
