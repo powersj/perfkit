@@ -1,4 +1,7 @@
 # PerfKit
+
+[![Build Status](https://travis-ci.org/powersj/perfkit.svg?branch=master)](https://travis-ci.org/powersj/perfkit)
+
 This is my personal collection of scripts and helpers for cloud performance testing.
 
 
