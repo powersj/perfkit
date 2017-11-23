@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Launch an AWS EC2 Instance."""
-import argparse
 import glob
 import os
 import sys
@@ -11,7 +10,7 @@ import boto3
 import paramiko
 
 
-def ec2_launch_instance(instance_type, release, ami):
+def create(instance_type, release, ami):
     """Launch EC2 instance."""
     if not ami:
         ami = get_daily_ubuntu_image_ami(release)
@@ -132,16 +131,3 @@ def wait_for_instance(instance_id):
     print('error: instance is not in running state after %s seconds' %
           (retries * 10))
     sys.exit(1)
-
-
-if __name__ == '__main__':
-    PARSER = argparse.ArgumentParser()
-    PARSER.add_argument('--type', required=True,
-                        help='Instance type to boot (e.g. t2.large)')
-
-    GROUP = PARSER.add_mutually_exclusive_group(required=True)
-    GROUP.add_argument('--release', help='Ubuntu release to find daily AMI')
-    GROUP.add_argument('--ami', help='AMI number to use (e.g. ami-a3d3df39)')
-
-    ARGS = PARSER.parse_args()
-    ec2_launch_instance(ARGS.type, ARGS.release, ARGS.ami)
