@@ -78,7 +78,7 @@ def prep_instance(ip_addr):
             push_test_scripts(client)
             client.close()
             return
-        except paramiko.ssh_exception.NoValidConnectionsError:
+        except (TimeoutError, paramiko.ssh_exception.NoValidConnectionsError):
             time.sleep(10)
 
     print('error: could not SSH to instance after %s seconds' % (10 * retries))
