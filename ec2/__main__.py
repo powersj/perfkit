@@ -2,9 +2,9 @@
 import argparse
 import sys
 
-from . import create
 from . import delete
 from . import inventory
+from . import launch
 from . import stop
 
 
@@ -14,46 +14,39 @@ def main():
     subparsers = parser.add_subparsers(dest='subcmd')
     subparsers.required = True
 
-    args_create = subparsers.add_parser('create')
-    args_create.add_argument('--type',
-                             required=True,
-                             dest='instance_type',
-                             help='Instance type to boot (e.g. t2.large)')
-    args_create_group = args_create.add_mutually_exclusive_group(required=True)
-    args_create_group.add_argument('--release',
-                                   help='Ubuntu release to use')
-    args_create_group.add_argument('--ami',
-                                   help='AMI to use (e.g. ami-a3d3df39)')
+    arg_create = subparsers.add_parser('launch')
+    arg_create.add_argument('instance_type',
+                            help='instance type to boot e.g. t2.micro')
+    arg_create_group = arg_create.add_mutually_exclusive_group()
+    arg_create_group.add_argument('--release',
+                                  help='ubuntu release to use, default: LTS')
+    arg_create_group.add_argument('--ami',
+                                  help='AMI to use e.g. ami-a3d3df39')
 
-    args_delete = subparsers.add_parser('delete')
-    args_delete.add_argument('instance_ids', nargs='+',
-                             help='Instance ids to delete')
+    arg_delete = subparsers.add_parser('delete')
+    arg_delete.add_argument('instance_ids', nargs='+',
+                            help='instance ids to delete')
 
-    args_list = subparsers.add_parser('list')
-    args_list.add_argument('tag_filter',
-                           nargs='*',
-                           help='Owner tag to filter by')
-    args_list_group = args_list.add_mutually_exclusive_group()
-    args_list_group.add_argument('--csv',
-                                 action="store_true",
-                                 dest='csv_flag',
-                                 help='Output in CSV')
-    args_list_group.add_argument('--json',
-                                 action="store_true",
-                                 dest='json_flag',
-                                 help='Output in JSON')
+    arg_list = subparsers.add_parser('list')
+    arg_list.add_argument('tag_filter', nargs='*',
+                          help='owner tag to filter by')
+    arg_list_group = arg_list.add_mutually_exclusive_group()
+    arg_list_group.add_argument('--csv', action='store_true', dest='csv_out',
+                                help='output in CSV')
+    arg_list_group.add_argument('--json', action='store_true', dest='json_out',
+                                help='output in JSON')
 
-    args_stop = subparsers.add_parser('stop')
-    args_stop.add_argument('instance_ids', nargs='+',
-                           help='Instance ids to stop')
+    arg_stop = subparsers.add_parser('stop')
+    arg_stop.add_argument('instance_ids', nargs='+',
+                          help='instance ids to stop')
 
     args = parser.parse_args()
     cmd = vars(args).pop('subcmd')
     arguments = vars(args)
 
     return {
-        'create': create.create,
         'delete': delete.delete,
+        'launch': launch.launch,
         'list': inventory.list_instances,
         'stop': stop.stop,
     }[cmd](**arguments)

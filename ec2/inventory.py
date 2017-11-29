@@ -8,7 +8,7 @@ from tabulate import tabulate
 from .instance import Ec2Instance
 
 
-def list_instances(tag_filter=None, csv_flag=False, json_flag=False):
+def list_instances(tag_filter=None, csv_out=False, json_out=False):
     """List all EC2 instances."""
     ec2 = boto3.resource('ec2')
 
@@ -24,10 +24,10 @@ def list_instances(tag_filter=None, csv_flag=False, json_flag=False):
 
     instances = sorted(instances, key=lambda d: (d.state, d.owner, d.type))
 
-    if csv_flag:
+    if csv_out:
         print('id,type,state,ami,ip_public,ip_private,owner')
         print('\n'.join([instance.to_csv() for instance in instances]))
-    elif json_flag:
+    elif json_out:
         print(json.dumps([instance.to_json() for instance in instances],
                          indent=4))
     else:

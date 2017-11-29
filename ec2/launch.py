@@ -7,10 +7,11 @@ import time
 
 import botocore
 import boto3
+import distro_info
 import paramiko
 
 
-def create(instance_type, release, ami):
+def launch(instance_type, release, ami):
     """Launch EC2 instance."""
     if not ami:
         ami = get_daily_ubuntu_image_ami(release)
@@ -20,8 +21,11 @@ def create(instance_type, release, ami):
     prep_instance(ip_addr)
 
 
-def get_daily_ubuntu_image_ami(release):
+def get_daily_ubuntu_image_ami(release=None):
     """Given a particular OS, find the latest daily image."""
+    if not release:
+        release = distro_info.UbuntuDistroInfo().lts()
+
     print('searching for daily AMI of %s' % (release))
     image_filter = ('ubuntu/images-testing/hvm-ssd/'
                     'ubuntu-%s-daily-amd64-server-*' % (release))
