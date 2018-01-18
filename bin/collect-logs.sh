@@ -3,7 +3,7 @@
 #
 # Copyright 2017 Canonical Ltd.
 # Joshua Powers <josh.powers@canonical.com>
-set -eux
+set -ux
 
 while [ ! -e /var/lib/cloud/instance/boot-finished ]; do
     echo "Boot NOT finished, sleeping 3"
@@ -36,6 +36,8 @@ cp /var/log/cloud-init.log "$LOG_DIR/cloud-init.log"
 cp /var/log/cloud-init-output.log "$LOG_DIR/cloud-init-output.log"
 cp /run/cloud-init/result.json "$LOG_DIR/cloud-init-result.json"
 cp /run/cloud-init/status.json "$LOG_DIR/cloud-init-status.json"
+cp /run/cloud-init/cloud.cfg "$LOG_DIR/cloud-init-cloud.cfg"
+cp /run/cloud-init/ds-identify.log "$LOG_DIR/cloud-init-ds-identify.log"
 
 systemd-analyze time | tee "$LOG_DIR/systemd_$(date +%s).log"
 systemd-analyze blame --no-pager | tee "$LOG_DIR/systemd_blame.log"
