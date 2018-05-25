@@ -52,10 +52,10 @@ class SystemdAnalyzeLog(object):
 
 
 class RebootLog(SystemdAnalyzeLog):
-    """TODO."""
+    """Distingish from reboot versus initial boot."""
 
     name = 'reboot'
 
     def __init__(self, log_path):
-        """TODO."""
+        """Call the super class."""
         super(RebootLog, self).__init__(log_path)
