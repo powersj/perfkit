@@ -12,7 +12,7 @@ if [ ! -d "$LOG_DIR" ]; then
 fi
 
 sudo apt update
-sudo apt install -y make build-essentials python qemu-kvm qemu-system-x86
+sudo apt install -y make build-essential python qemu-kvm qemu-system-x86
 
 git clone https://git.kernel.org/pub/scm/virt/kvm/kvm-unit-tests.git
 cd kvm-unit-tests/
