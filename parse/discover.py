@@ -4,9 +4,9 @@ import os
 from .log.fio import FioLog
 from .log.netperf import NetperfLog
 from .log.stress_ng import StressNgLog
-from .log.systemd import SystemdAnalyzeLog
+from .log.systemd import SystemdAnalyzeLog, RebootLog
 
-LOG_TYPES = [SystemdAnalyzeLog, StressNgLog, NetperfLog, FioLog]
+LOG_TYPES = [SystemdAnalyzeLog, RebootLog, StressNgLog, NetperfLog, FioLog]
 
 
 def launch(log_dir):

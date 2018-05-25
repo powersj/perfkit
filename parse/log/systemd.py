@@ -49,3 +49,13 @@ class SystemdAnalyzeLog(object):
                 self.times[values[2]] = (mins * 60.0) + seconds
             else:
                 self.times[values[1]] = float(values[0].replace('s', ''))
+
+
+class RebootLog(SystemdAnalyzeLog):
+    """TODO."""
+
+    name = 'reboot'
+
+    def __init__(self, log_path):
+        """TODO."""
+        super(RebootLog, self).__init__(log_path)
