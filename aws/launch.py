@@ -84,6 +84,8 @@ def prep_instance(ip_addr):
             return
         except (TimeoutError, paramiko.ssh_exception.NoValidConnectionsError):
             time.sleep(10)
+        except paramiko.ssh_exception.PasswordRequiredException:
+            time.sleep(10)
 
     print('error: could not SSH to instance after %s seconds' % (10 * retries))
     sys.exit(1)
