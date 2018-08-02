@@ -1,0 +1,8 @@
+[MASTER]
+# Use multiple processes to speed up Pylint (--go-faster)
+jobs=4
+
+[MESSAGES CONTROL]
+# E0401: unable to import
+# W0221: arguments differ
+disable=E0401, W0221

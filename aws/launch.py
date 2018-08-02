@@ -7,8 +7,9 @@ import time
 
 import botocore
 import boto3
-import paramiko
 import distro_info
+import paramiko
+
 
 
 def launch(instance_type, release, ami):
