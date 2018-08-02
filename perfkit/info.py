@@ -27,6 +27,8 @@ class Test(BaseTest):
 
         instance.delete()
 
+        return ""
+
     def parse_results(self, **kwargs):
         """Parse test results."""
         raise NotImplementedError
