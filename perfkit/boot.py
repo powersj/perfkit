@@ -94,17 +94,17 @@ class Test(BaseTest):
         return result
 
     @staticmethod
-    def _format_results(results):
+    def _format_results(boot_time_result):
         """Format results with average, median, and std. deviation."""
         kernel, userspace, total = [], [], []
 
-        result = ['iteration,kernel,userspace,total\n']
-        for count, result in enumerate(results):
-            result.append('%s,%s' % (count, result))
+        result = ['iteration,kernel,userspace,total']
+        for count, boot_time in enumerate(boot_time_result):
+            result.append('%s,%s' % (count, boot_time))
 
-            kernel.append(result.kernel)
-            userspace.append(result.userspace)
-            total.append(result.total)
+            kernel.append(boot_time.kernel)
+            userspace.append(boot_time.userspace)
+            total.append(boot_time.total)
 
         result.append('\nAverage,%.3f,%.3f,%.3f' % (
             sum(kernel)/len(kernel),
@@ -116,11 +116,13 @@ class Test(BaseTest):
             statistics.median(userspace),
             statistics.median(total),
         ))
-        result.append('Std. Deviation,%.3f,%.3f,%.3f' % (
-            statistics.stdev(kernel),
-            statistics.stdev(userspace),
-            statistics.stdev(total),
-        ))
+        if len(total) > 1:
+            result.append('Std. Deviation,%.3f,%.3f,%.3f' % (
+                statistics.stdev(kernel),
+                statistics.stdev(userspace),
+                statistics.stdev(total),
+            ))
+
         result.append('')
 
         return result

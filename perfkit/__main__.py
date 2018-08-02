@@ -65,7 +65,7 @@ def _results_to_file(result, log_dir):
 def launch_test():
     """Run selected test and record results to file."""
     args = _setup_args()
-    _setup_logging(args.debug)
+    _setup_logging()
 
     result = ""
     if args.subcommand == 'boot-time':
