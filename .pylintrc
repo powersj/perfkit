@@ -3,6 +3,9 @@
 jobs=4
 
 [MESSAGES CONTROL]
-# E0401: unable to import
-# W0221: arguments differ
-disable=E0401, W0221
+# E0401: Unable to import
+# R0902: Too many instance attributes
+# R0903: Too few public methods
+# R0913: Too many arguments
+# C0103: Attribute name doesn't conform to snake_case naming style
+disable=E0401, R0902, R0903, R0913, C0103
