@@ -16,7 +16,7 @@ class HotAddTest(BaseTest):
     test_name = 'hot-add'
 
     def __init__(self, cloud, instance_type, release, iterations, log_dir,
-                 num_storage_devs=1, num_network_devs=1):
+                 num_network_devs=1, num_storage_devs=1):
         """Initialize Hot-Add Test."""
         super().__init__(cloud, instance_type, release, iterations, log_dir)
 
@@ -39,15 +39,15 @@ class HotAddTest(BaseTest):
 
     def execute(self):
         """Run the test."""
-        for index in range(self.num_storage_devs):
-            self._log.info('adding storage device %s of %s',
-                           index+1, self.num_storage_devs)
-            self.instance.add_volume()
-
         for index in range(self.num_network_devs):
             self._log.info('adding network device %s of %s',
                            index+1, self.num_network_devs)
             self.instance.add_network_interface()
+
+        for index in range(self.num_storage_devs):
+            self._log.info('adding storage device %s of %s',
+                           index+1, self.num_storage_devs)
+            self.instance.add_volume()
 
         # make sure we wait for everything to get added
         self._log.info('sleeping to allow instance to settle')
