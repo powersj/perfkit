@@ -5,6 +5,7 @@ import argparse
 import json
 import statistics
 import sys
+import time
 
 import distro_info
 
@@ -75,6 +76,8 @@ class FioTest(BaseTest):
     def execute(self):
         """Run the test."""
         self.read_results.append(self._run_fio('read'))
+        self._log.info('sleeping between tests')
+        time.sleep(120)
         self.write_results.append(self._run_fio('write'))
 
     def cleanup(self):
