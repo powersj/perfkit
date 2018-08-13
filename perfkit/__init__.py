@@ -47,11 +47,11 @@ class BaseTest:
         """Parse test results."""
         raise NotImplementedError
 
-    def create_instance(self):
+    def create_instance(self, **kwargs):
         """Create an instance for testing."""
-        return self._launch_instance()
+        return self._launch_instance(**kwargs)
 
-    def _launch_instance(self):
+    def _launch_instance(self, **kwargs):
         """Launch an instance."""
         self._log.info('launching instance')
 
@@ -62,7 +62,7 @@ class BaseTest:
             sys.exit(1)
 
         return self.cloud.launch(
-            image_id, instance_type=self.instance_type
+            image_id, instance_type=self.instance_type, **kwargs
         )
 
     @staticmethod

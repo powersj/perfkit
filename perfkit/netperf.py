@@ -43,7 +43,11 @@ class NetperfTest(BaseTest):
         self.instance.execute('sudo apt-get update')
         self.instance.execute('sudo apt-get install --yes netperf')
 
-        self.slave = self.create_instance()
+        # place both in the same availability zone
+        placement = {
+            'AvailabilityZone': self.instance.availability_zone
+        }
+        self.slave = self.create_instance(Placement=placement)
         self.slave.execute('sudo apt-get update')
         self.slave.execute('sudo apt-get install --yes netperf')
 
