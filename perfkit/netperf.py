@@ -4,6 +4,7 @@
 import argparse
 import statistics
 import sys
+import time
 
 import distro_info
 
@@ -118,6 +119,9 @@ class NetperfTest(BaseTest):
             result = self._netperf_output_bw(output, -2, 5)
         else:
             result = self._netperf_output_bw(output, -1, 4)
+
+        self._log.info('sleeping between tests')
+        time.sleep(120)
 
         return float(result)
 
