@@ -107,3 +107,19 @@ class BaseTest:
         file = logging.FileHandler(os.path.join(self.log_dir, filename))
         file.setFormatter(formatter)
         log.addHandler(file)
+
+    @staticmethod
+    def subp(command):
+        """Run command on local system."""
+        if isinstance(command, str):
+            command = ['sh', '-c', command]
+
+        process = subprocess.Popen(
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
+        (out, err) = process.communicate()
+
+        out = '' if not out else out.rstrip().decode("utf-8")
+        err = '' if not err else err.rstrip().decode("utf-8")
+
+        return out, err

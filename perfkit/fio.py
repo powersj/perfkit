@@ -163,7 +163,7 @@ class FioTest(BaseTest):
 
         self.instance.execute(fio_cmd)
         output = self.instance.execute('sudo cat fio.json')
-        self.save_to_file(output, suffix='test')
+        self.save_to_file(output, suffix=test)
 
         # clean up between tests
         self.instance.execute('sudo rm *')
