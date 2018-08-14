@@ -153,7 +153,7 @@ def _setup_args():
         help='Ubuntu release to test; default is latest LTS'
     )
     parser.add_argument(
-        '--iterations', type=int, default=5,
+        '--iterations', type=int, default=4,
         help='number of test iterations to run'
     )
 
