@@ -32,7 +32,7 @@ class FioNvmeTest(FioTest):
             self._log.error('No disks to test')
             sys.exit(1)
         elif len(disks) == 1:
-            return '/dev/%s' % disks[0]
+            return '%s' % disks[0]
         else:
             mdadm_cmd = (
                 'sudo mdadm --create /dev/md0 --level=0 --name=TEST_RAID'
