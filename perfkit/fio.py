@@ -108,7 +108,7 @@ class FioTest(BaseTest):
 
     def _print_results(self, results):
         """TODO."""
-        result = ['iteration,iops,bw (KB/s),io (bytes),mean disk util']
+        result = ['iteration,iops,bw,io,mean disk util']
         for count, data in enumerate(results):
             result.append('%s,%s' % (count+1, data))
 
@@ -129,7 +129,7 @@ class FioTest(BaseTest):
         io = sum([result.io for result in results]) / total
         util = sum([result.util for result in results]) / total
 
-        return 'average,%.3f,%.3f,%.3f,%.3f' % (iops, bw, io, util)
+        return '\naverage,%.3f,%.3f,%.3f,%.3f' % (iops, bw, io, util)
 
     @staticmethod
     def _calc_median(results):

@@ -54,7 +54,11 @@ class NetperfTest(BaseTest):
     def execute(self):
         """Run the test."""
         self.tcp_send.append(self._run_netperf(test='TCP_STREAM'))
+        self._log.info('sleeping between tests')
+        time.sleep(120)
         self.udp_send.append(self._run_netperf(test='UDP_STREAM'))
+        self._log.info('sleeping between tests')
+        time.sleep(120)
         self.tcp_receive.append(self._run_netperf(test='TCP_MAERTS'))
 
     def cleanup(self):
@@ -123,9 +127,6 @@ class NetperfTest(BaseTest):
             result = self._netperf_output_bw(output, -2, 5)
         else:
             result = self._netperf_output_bw(output, -1, 4)
-
-        self._log.info('sleeping between tests')
-        time.sleep(120)
 
         return float(result)
 

@@ -146,7 +146,7 @@ class BootTest(BaseTest):
         userspace = sum([result.userspace for result in results]) / total
         total = sum([result.total for result in results]) / total
 
-        return 'average,%.3f,%.3f,%.3f' % (kernel, userspace, total)
+        return '\naverage,%.3f,%.3f,%.3f' % (kernel, userspace, total)
 
     @staticmethod
     def _calc_median(results):
