@@ -23,7 +23,7 @@ class BaseTest:
         self.setup_logging()
         self._log = logging.getLogger(__name__)
 
-        self.cloud = pycloudlib.EC2()
+        self.cloud = pycloudlib.EC2(tag='perfkit')
         self.instance_type = instance_type
         self.release = release
         self.iterations = iterations
