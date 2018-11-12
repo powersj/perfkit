@@ -5,8 +5,6 @@ import argparse
 import sys
 import time
 
-import distro_info
-
 from . import BaseTest
 
 
@@ -89,7 +87,7 @@ def _setup_args():
         'instance_type', help='Instance type to test'
     )
     parser.add_argument(
-        '--release', default=distro_info.UbuntuDistroInfo().lts(),
+        '--release', required=True,
         help='Ubuntu release to test; default is latest LTS'
     )
     parser.add_argument(
